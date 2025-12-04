@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Страховой Навигатор - Автоматизация корпоративного страхования</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        :root {
+            --primary: #0056b3;
+            --secondary: #28a745;
+            --accent: #ff6b00;
+            --dark: #2c3e50;
+            --light: #f8f9fa;
+        }
+        
+        body {
+            color: #333;
+            line-height: 1.6;
+            background: #f5f7fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .contact-phone {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--primary);
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, #003d82 100%);
+            color: white;
+            padding: 140px 0 80px;
+            margin-top: 60px;
+            text-align: center;
+        }
+        
+        .sync-heading {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        .main-heading {
+            font-size: 36px;
+            margin-bottom: 40px;
+            line-height: 1.2;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .centered-form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+        }
+        
+        .centered-form {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .form-title {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--dark);
+            font-size: 22px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--dark);
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 86, 179, 0.2);
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .cta-button {
+            display: block;
+            width: 100%;
+            background: var(--accent);
+            color: white;
+            padding: 18px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin-top: 10px;
+        }
+        
+        .cta-button:hover {
+            background: #e55a00;
+            transform: translateY(-2px);
+        }
+        
+        .secondary-actions {
+            margin-top: 25px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .secondary-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .secondary-link:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+        
+        .features {
+            padding: 60px 0;
+            background: var(--light);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 32px;
+            color: var(--primary);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .feature-item {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .feature-item ul {
+            list-style: none;
+            margin-top: 15px;
+        }
+        
+        .feature-item li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .feature-item li:before {
+            content: "✓ ";
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        /* Guarantees */
+        .guarantees {
+            padding: 60px 0;
+            background: white;
+        }
+        
+        .guarantees-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+        
+        .guarantee-item {
+            padding: 20px;
+        }
+        
+        .guarantee-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+        
+        .final-cta {
+            background: linear-gradient(135deg, var(--primary) 0%, #003d82 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .cta-heading {
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            margin: 20px 0;
+        }
+        
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        
+        @media (max-width: 1024px) {
+            .main-heading {
+                font-size: 32px;
+            }
+            
+            .centered-form {
+                padding: 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 12px 0;
+            }
+            
+            .logo {
+                font-size: 20px;
+            }
+            
+            .contact-phone {
+                font-size: 16px;
+            }
+            
+            .hero {
+                padding: 120px 0 60px;
+            }
+            
+            .main-heading {
+                font-size: 26px;
+                margin-bottom: 30px;
+            }
+            
+            .sync-heading {
+                font-size: 16px;
+            }
+            
+            .centered-form {
+                padding: 25px 20px;
+            }
+            
+            .form-title {
+                font-size: 20px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .guarantees-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-heading {
+                font-size: 24px;
+            }
+            
+            .secondary-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .footer-links {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .footer-link {
+                margin: 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .header-content {
+                padding: 10px 0;
+            }
+            
+            .logo {
+                font-size: 18px;
+            }
+            
+            .contact-phone {
+                font-size: 14px;
+            }
+            
+            .hero {
+                padding: 100px 0 40px;
+            }
+            
+            .main-heading {
+                font-size: 22px;
+            }
+            
+            .sync-heading {
+                font-size: 14px;
+            }
+            
+            .centered-form {
+                padding: 20px 15px;
+            }
+            
+            .form-title {
+                font-size: 18px;
+            }
+            
+            .form-group input, .form-group select {
+                padding: 12px;
+                font-size: 14px;
+            }
+            
+            .cta-button {
+                padding: 15px;
+                font-size: 16px;
+            }
+            
+            .section-title {
+                font-size: 24px;
+            }
+            
+            .feature-item {
+                padding: 20px;
+            }
+            
+            .guarantee-item {
+                padding: 15px;
+            }
+            
+            .guarantee-icon {
+                font-size: 32px;
+            }
+            
+            .final-cta {
+                padding: 40px 0;
+            }
+            
+            .cta-heading {
+                font-size: 20px;
+            }
+            
+            footer {
+                padding: 30px 0;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .main-heading {
+                font-size: 20px;
+            }
+            
+            .form-group input, .form-group select {
+                padding: 10px;
+            }
+            
+            .cta-button {
+                padding: 12px;
+                font-size: 15px;
+            }
+            
+            .section-title {
+                font-size: 22px;
+            }
+        }
+        
+        @media (min-height: 800px) {
+            .hero {
+                min-height: 80vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+        }
+        
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero {
+                padding: 100px 0 40px;
+            }
+            
+            .centered-form {
+                max-width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Страховой<span>Навигатор</span></div>
+                <a href="tel:+78001234567" class="contact-phone">8 (800) 555-35-35</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="sync-heading">Автоматизация страхования для бизнеса — получите демо-доступ</div>
+            <h1 class="main-heading">Страховой Навигатор: первая облачная платформа, которая сокращает расходы на страхование на 25% и экономит 15 часов рабочего времени в месяц</h1>
+            
+            <div class="centered-form-container">
+                <div class="centered-form">
+                    <h3 class="form-title">Получите демо-доступ на 14 дней</h3>
+                    <form id="demoForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">ФИО</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="position">Должность</label>
+                                <input type="text" id="position" name="position" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Компания</label>
+                            <input type="text" id="company" name="company" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Телефон</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="cta-button">ПОЛУЧИТЬ ДЕМО-ДОСТУП НА 14 ДНЕЙ</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Возможности платформы</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <h3>✓ Единый кабинет управления</h3>
+                    <ul>
+                        <li>Все страховые полиса в одном месте</li>
+                        <li>Автоматическое напоминание о продлении</li>
+                        <li>Централизованная отчетность</li>
+                        <li>Управление несколькими филиалами</li>
+                    </ul>
+                </div>
+                <div class="feature-item">
+                    <h3>✓ AI-анализ рисков</h3>
+                    <ul>
+                        <li>Точность оценки 94%</li>
+                        <li>Персональные рекомендации</li>
+                        <li>Прогнозирование страховых случаев</li>
+                        <li>Анализ рыночных предложений</li>
+                    </ul>
+                </div>
+                <div class="feature-item">
+                    <h3>✓ Автоматизация процессов</h3>
+                    <ul>
+                        <li>Онлайн-оформление полисов</li>
+                        <li>Автоматические выплаты</li>
+                        <li>Умные уведомления</li>
+                        <li>Интеграция с 20+ страховыми компаниями</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="guarantees">
+        <div class="container">
+            <h2 class="section-title">Наши гарантии</h2>
+            <div class="guarantees-grid">
+                <div class="guarantee-item">
+                    <div class="guarantee-icon">🛡️</div>
+                    <h3>Безопасность данных</h3>
+                    <p>Сертифицировано ФСТЭК России. Соответствие требованиям ЦБ РФ и 152-ФЗ</p>
+                </div>
+                <div class="guarantee-item">
+                    <div class="guarantee-icon">⏰</div>
+                    <h3>Поддержка 24/7</h3>
+                    <p>Персональный менеджер всегда на связи. Решаем вопросы в течение 15 минут</p>
+                </div>
+                <div class="guarantee-item">
+                    <div class="guarantee-icon">🎓</div>
+                    <h3>Бесплатная миграция</h3>
+                    <p>Помощь в переходе с текущих страховых продуктов. Обучение персонала включено</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="final-cta">
+        <div class="container">
+            <h2 class="cta-heading">Начните оптимизацию страховых расходов вашей компании уже сегодня!</h2>
+            <a href="#demoForm" class="cta-button">ПОЛУЧИТЬ ДЕМО-ДОСТУП НА 14 ДНЕЙ</a>
+            <div class="secondary-actions">
+                <a href="#" class="secondary-link" style="color: white;">Кейс внедрения в Ростелеком</a>
+                <a href="#" class="secondary-link" style="color: white;">Отзывы клиентов</a>
+                <a href="#" class="secondary-link" style="color: white;">Сертификаты</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="logo" style="color: white;">Страховой<span style="color: var(--accent);">Навигатор</span></div>
+            <div class="footer-links">
+                <a href="#" class="footer-link">Политика конфиденциальности</a>
+                <a href="#" class="footer-link">Пользовательское соглашение</a>
+                <a href="#" class="footer-link">Карта сайта</a>
+            </div>
+            <p>© 2025 Страховой Навигатор. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('demoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Спасибо за заявку! Мы свяжемся с вами в течение 15 минут для предоставления демо-доступа.');
+        });
+        
+        console.log('Яндекс.Метрика: трекинг активирован');
+        console.log('Google Analytics: трекинг активирован');
+        console.log('CallTouch: сквозная аналитика активна');
+    </script>
+</body>
+</html>
