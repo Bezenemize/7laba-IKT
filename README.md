@@ -10,9 +10,21 @@ DOM-дерево (Document Object Model) — это программное пр�
 
 Пример метода, работающего с DOM:
 
-Метод `document.getElementById()` находит элемент по его уникальному `id`. На скриншоте показано его использование для получения формы и добавления обработчика события `submit`.
+Метод `document.getElementById()` находит элемент по его уникальному `id`.
 
 <img width="730" height="89" alt="image" src="https://github.com/user-attachments/assets/572b005a-c653-440b-b37c-c9da89953ad6" />
+
+<img width="338" height="18" alt="image" src="https://github.com/user-attachments/assets/6ac0069b-b24c-44f3-b66f-c47fdc4f4a33" />
+
+<img width="368" height="60" alt="image" src="https://github.com/user-attachments/assets/47991145-ebbb-4b45-9fb6-fcae27e6c5a3" />
+
+Метод `document.querySelectorAll()` находит все кнопки, которые ссылаются на форму.
+
+<img width="451" height="23" alt="image" src="https://github.com/user-attachments/assets/8d400e73-33cd-411d-b512-27772e0559b6" />
+
+Метод `element.scrollIntoView()` управляет прокруткой страницы к элементу формы.
+
+<img width="297" height="24" alt="image" src="https://github.com/user-attachments/assets/5571b57f-bfce-4a66-849d-2499a9bceb42" />
 
 ## 2. Антипаттерн console.log()
 
@@ -25,6 +37,11 @@ DOM-дерево (Document Object Model) — это программное пр�
   
 Пример антипаттерна в коде:
 
-В проекте `console.log()` используется для имитации работы систем аналитики прямо в основном потоке выполнения.
+В проекте `console.log()` использовался для имитации работы систем аналитики прямо в основном потоке выполнения.
 
 <img width="392" height="69" alt="image" src="https://github.com/user-attachments/assets/0f0ca85f-6199-4032-a21e-b20e764e8cbe" />
+
+Обновленный код, в котором убран `console.log()`:
+
+<img width="774" height="784" alt="image" src="https://github.com/user-attachments/assets/1bd2e4a5-a2fd-4b06-aacd-512b19009e1e" />
+
